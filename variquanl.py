@@ -24,4 +24,4 @@ def variance(arr):
 
 def variation_coefficient(arr):
          result = 1.0*np.std(arr)/np.mean(arr)
-         return "%.2f%%"%(result*100)
+         return '%.2f%%'%(result*100)

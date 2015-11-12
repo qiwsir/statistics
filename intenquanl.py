@@ -29,14 +29,6 @@ def base_average(arry):
     return result
 
 
-def base_sqrt(arry):
-     """
-     This is square root fuction
-     
-     """
-     res_sqrt = math.sqrt(arry)
-     return res_sqrt
-
 def base_geom_mean(arry):
      """
      This is a function of geometric mean.
@@ -92,10 +84,9 @@ def base_harmo_ave(arry):
      The formal parameter is a one dimensional list.
      The return value is the harmonic mean of the list.
      """
-     sum = 0
-     for i in arry:
-         sum = 1.0*1/i+sum
-     result = 1.0/(1.0*1/len(arry)*sum)
+     res = np.array(arry)
+     Sum=(1.0/res).sum()
+     result = 1/(1.0/len(arry)*Sum)
      return result
 
 def base_median(l):
