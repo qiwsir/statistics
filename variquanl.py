@@ -3,36 +3,57 @@
 
 import numpy as np
 
-def average_deviation(arr):
-         
-         
-           arr.sort()
-           if len(arr)%2==1:
-               res = abs(np.array(arr)-arr[len(arr)/2])
-           else:
-               res = abs(np.array(arr)-(arr[len(arr)/2]+arr[len(arr)/2-1])/2.0)
-                    
-           result = 1.0*res.sum()/len(arr)
-           return round(result,2)
+def base_average_deviation(arry):
+				"""
+				Compute the average deviation
+				The formal parameter is a one dimensional list.
+				"""				
+				arry.sort()
+				if len(arry)%2==1:
+								res = abs(np.array(arry)-arry[len(arry)/2])
+				else:
+				    res = abs(np.array(arry)-(arry[len(arry)/2]+arry[len(arry)/2-1])/2.0)
+				         
+				result = 1.0*res.sum()/len(arry)
+				return round(result,2)
 
-def standard_deviation(arr):
-         result = np.std(arr)
-         return round(result,2)
+def base_standard_deviation(arry):
+				"""
+				Compute the standard deviation
+				The formal parameter is a one dimensional list.
+				"""
+				result = np.std(arry)
+				return round(result,2)
 
-def variance(arr):
-         result = np.var(arr)
-         return round(result,2) 
+def base_variance(arry):
+				"""
+				Compute the varince
+				The formal parameter is a one dimensional list.
+				"""
+				result = np.var(arry)
+				return round(result,2) 
 
-def variation_coefficient(arr):
-         result = 1.0*np.std(arr)/np.mean(arr)
-         return '%.2f%%'%(result*100)
+def base_variation_coefficient(arry):
+				"""
+				Compute the coefficient of variation
+				The formal parameter is a one dimensional list.
+				"""
+				result = 1.0*np.std(arry)/np.mean(arry)
+				return '%.2f%%'%(result*100)
 
-def interquartile_range(arr):
-         arr.sort()
-         result = (arr[len(arr)*3/4]-arr[len(arr)/4])/2.0
-         return round(result,2)
+def base_interquartile_range(arry):
+				"""
+				Compute the interquartile range
+				The formal parameter is a one dimensional list.
+				"""
+				arry.sort()
+				result = (np.percentile(arry, 75)-np.percentile(arry, 25))/2.0
+				return round(result,2)
 
-def percentile_range(arr):
-         arr.sort()
-         result = arr[len(arr)*9/10]-arr[len(arr)/10]
-         return result
+def base_percentile_range(arry):
+				"""
+				Compute the percentile range
+				The formal parameter is a one dimensional list.
+				"""
+				result = np.percentile(arry, 90)-np.percentile(arry, 10)
+				return result

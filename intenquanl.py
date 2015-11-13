@@ -23,15 +23,16 @@ def base_geom_mean(arry):
     This is a function of geometric mean.
     The formal parameter is a one dimensional list.
     The return value is the geometric average of the list
-    """
-    return stats.mstats.gmean(arry)
-
-def base_geom_mean2(arry):
+    ---
+    def base_geom_mean2(arry):
     import operator
     if 0 in arry:
         arry.remove(0)
-
     return (reduce(operator.mul, arry)) ** (1.0 / len(arry))
+    ---
+    """
+    return stats.mstats.gmean(arry)
+
 #####
 def base_weig_ave(arry,y):
     """
@@ -39,9 +40,21 @@ def base_weig_ave(arry,y):
     The formal parameter is a two dimensional list.
     The return value is the weighted average of the list
     
+    def base_weig_ave2(value, weight):
+				numerator = sum(value[i] * weight[i] for i in range(len(value)))
+				divisor =  sum(weight[i] for i in range(len(value)))
+				return (1.0*numerator / divisor) if divisor != 0 else None 
+				---
+				>>>%timeit base_weig_ave(a,b)
+    >>>1000 loops, best of 3: 1.56 ms per loop
+    >>>%timeit base_weig_ave2(a,b)
+    >>>100 loops, best of 3: 4 ms per loop
+				---   
     """
     result = np.average(arry, weights=y)
     return result
+    
+
 
 def base_harmo_ave(arry):
     """
@@ -49,12 +62,16 @@ def base_harmo_ave(arry):
     The formal parameter is a one dimensional list.
     The return value is the harmonic mean of the list.
     """
+    """
     res = np.array(arry)
     Sum=(1.0/res).sum()
     result = 1/(1.0/len(arry)*Sum)
     return result
+    """
+    result = stats.hmean(arry)
+    return round(result,2)
 
-def base_median(l):
+def base_median(arry):
     """
     This is a function of median.
     The formal parameter is a one dimensional list.
@@ -69,31 +86,7 @@ def base_median(l):
     >>>%timeit np.median(a)
     1000 loops, best of 3: 852 µs per loop
     """
-    """
-    flag = True
-    for i in range(len(l)-1, 0, -1):
-        if flag:             
-            flag = False
-            for j in range(i):
-                if l[j] > l[j + 1]:
-                    l[j], l[j+1] = l[j+1], l[j]
-                    flag = True
-        else:
-            break
-    if len(l)%2==1:
-        result =l[len(l)/2+1]
-    else:
-        result = 1.0*(l[len(l)/2+1]+l[len(l)/2])/2
-    return result
-    ---
-    
-    a = list(randn(10000))
-    >>>%timeit base_median(a)
-    1000 loops, best of 3: 946 µs per loop
-
-    
-    """
-    result = np.median(l)
+    result = np.median(arry)
     return result
 
 def base_mode(arry):
@@ -101,25 +94,6 @@ def base_mode(arry):
     This is a function of mode.
     The formal parameter is a one dimensional list.
     The return value are the mode and the frequency
-    """
-    list_num = []
-    dict_num ={}
-    for item in arry:
-         if dict_num.has_key(item):  
-             dict_num[item] += 1
-         else:
-             dict_num.setdefault(item,1)   
-             pass
-    
-    top_value = 0
-    for valus in dict_num.itervalues():
-        if valus> top_value:
-             top_value = valus
-             pass
-    the_pop_num = 0
-    the_pop_num_count = 0
-    for keys,values in dict_num.iteritems():
-         if values == top_value:
-             the_pop_num = keys
-             the_pop_num_count = values
-             return the_pop_num, the_pop_num_count         
+    """   
+    result= stats.mode(arry)
+    return result
