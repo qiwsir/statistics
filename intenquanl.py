@@ -2,92 +2,57 @@
 # coding=utf-8
 
 import numpy as np
-import math
+from scipy import stats
 
 def base_average(arry):
     """
     This is a function of the average
     The formal parameter is a one dimensional list.
     The return value is the average
-    ---
-    r_sum = sum(arry)
-    result = r_sum*1.0 / len(arry)   
-    >>> a = list(randn(1000000))
-    >>>  %timeit base_average(a)
-    10 loops, best of 3: 59 ms per loop
-
-    ---
-    result = np.mean(arry)
-    >>>a = list(randn(1000000))
-    >>>%timeit base_average(a)
-    10 loops, best of 3: 80 ms per loop
-    
     """
-    #result = np.mean(arry)
-    r_sum = sum(arry)
-    result = r_sum*1.0 / len(arry)   
+    if len(arry):
+        r_sum = sum(arry)
+        result = r_sum*1.0 / len(arry)   
+    else:
+        result = 0
     return result
 
 
 def base_geom_mean(arry):
-     """
-     This is a function of geometric mean.
-     The formal parameter is a one dimensional list.
-     The return value is the geometric average of the list
+    """
+    This is a function of geometric mean.
+    The formal parameter is a one dimensional list.
+    The return value is the geometric average of the list
+    """
+    return stats.mstats.gmean(arry)
 
-     ---
-     >>>a = list(abs(randn(1000000)))
-     >>>%timeit   base_geom_mean(a)
-     10 loops, best of 3: 94.3 ms per loop
-     
-     
-     sum =1
-     for i in arry:
-         sum = sum*i
-     result =pow(sum,1.0*1/len(arry))
-     return result
-     ---
-     def operat (x , y):
-              return x*y
-     return pow(reduce(operat , arry),1.0*1/len(arry))
-     
-     %run geom_mean.py
-     >>>%timeit base_geom_mean(a)
-     1 loops, best of 3: 175 ms per loop
+def base_geom_mean2(arry):
+    import operator
+    if 0 in arry:
+        arry.remove(0)
 
-     """
-     sum =1
-     for i in arry:
-         sum = sum*i
-     result =pow(sum,1.0*1/len(arry))
-     return result
-
-
-def base_weig_ave(x,y):
-     """
-     This is a function of weighted average.
-     The formal parameter is a two dimensional list.
-     The return value is the weighted average of the list
-     
-     sum = 0
-     for i in x:
-         sum = i*y[1]+sum
-     result =1.0*sum/len(y)
-     return result
-     """
-     result = np.average(x,weights=y)
-     return result
+    return (reduce(operator.mul, arry)) ** (1.0 / len(arry))
+#####
+def base_weig_ave(arry,y):
+    """
+    This is a function of weighted average.
+    The formal parameter is a two dimensional list.
+    The return value is the weighted average of the list
+    
+    """
+    result = np.average(arry, weights=y)
+    return result
 
 def base_harmo_ave(arry):
-     """
-     This is a function of harmonic mean.
-     The formal parameter is a one dimensional list.
-     The return value is the harmonic mean of the list.
-     """
-     res = np.array(arry)
-     Sum=(1.0/res).sum()
-     result = 1/(1.0/len(arry)*Sum)
-     return result
+    """
+    This is a function of harmonic mean.
+    The formal parameter is a one dimensional list.
+    The return value is the harmonic mean of the list.
+    """
+    res = np.array(arry)
+    Sum=(1.0/res).sum()
+    result = 1/(1.0/len(arry)*Sum)
+    return result
 
 def base_median(l):
     """
