@@ -1,10 +1,11 @@
 # /usr/bin/env python
 # coding:utf-8
 
-import basestat
+import intenquanl 
 
 
-a = [1, 3, 5, 6]
-b= range(1000000)
-print basestat.base_average(a)
-print basestat.base_average(b)
+
+b = range(10)
+
+print intenquanl.base_geom_mean(b)
+print intenquanl.base_geom_mean2(b)
